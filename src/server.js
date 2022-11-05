@@ -1,8 +1,12 @@
 const express = require('express')
+const optionConfig = require("./config/optionConfig.js")
 const { Server } = require ('socket.io')
+const ContenedorMysql = require("./managers/contenedorMysql.js")
+const ContenedorSql = require("./managers/contenedorSql");
 
 const app = express()
-
+const productosApi = new ContenedorMysql(option.mariaDB, "products")
+const chatApi = new ContenedorSql(options.sqliteDB,"chat");
 
 const PORT = process.env.PORT || 8080
 const server = app.listen(PORT, ()=>console.log(`Server ready on port ${8080}`))
@@ -10,7 +14,23 @@ const server = app.listen(PORT, ()=>console.log(`Server ready on port ${8080}`))
 
 const io = new Server(server)
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 app.use(express.static(__dirname+'/public'))
+
+
+// routes
+//view routes
+app.get('/', async(req,res)=>{
+    res.render('home')
+})
+
+app.get('/productos',async(req,res)=>{
+    res.render('products',{products: await productosApi.getAll()})
+})
+
+//api routes
+app.use('/api/products',productsRouter)
 
 //levantar socket del servidor
 const historicoMensajes = [];

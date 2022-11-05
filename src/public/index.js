@@ -26,6 +26,8 @@ campo.addEventListener("keydown",(evt)=>{
     }
 })
 
+//fetch("/partials/tableData")
+
 const messageContainer = document.getElementById("messageContainer");
 
 socketClient.on("historico",(data)=>{
