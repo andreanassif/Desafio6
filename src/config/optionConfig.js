@@ -1,3 +1,5 @@
+const path = require("path");
+
 const options = {
     mariaDB:{
         client:"mysql",

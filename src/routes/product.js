@@ -1,7 +1,7 @@
-const express = require('express');
-// const Contenedor = require("../managers/contenedorProductos");
-const ContenedorSql = require("../managers/contenedorSql");
-const options = require("../config/dbConfig");
+const express = require("express");
+//const Contenedor = require("../managers/contenedorProductos");
+const ContenedorSql = require("../managers/contenedorMysql.js");
+const options = require("../config/optionConfig.js");
 
 const router = express.Router();
 

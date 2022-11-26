@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "author": {
+      "email": "andrea.e.nassif@hotmail.com",
+      "name": "ANDREA ESTEFANÍA",
+      "lastname": "Nassif",
+      "age": "35",
+      "alias": "Pity",
+      "avatar": "https://res.cloudinary.com/dhndpus6m/image/upload/v1659133158/Locosen3D/logolocos_x6ztl9.jpg"
+    },
+    "text": "nuevo mensaje",
+    "timestamp": "26/11/2022, 16:21:33"
+  },
+  {
+    "id": 2,
+    "author": {
+      "email": "matias@mail.com",
+      "name": "matias",
+      "lastname": "arias",
+      "age": "32",
+      "alias": "maty",
+      "avatar": "https://res.cloudinary.com/dhndpus6m/image/upload/v1659133158/Locosen3D/deco-homero-dona_hmfm8w.jpg"
+    },
+    "text": "otro mensaje",
+    "timestamp": "26/11/2022, 16:21:41"
+  },
+  {
+    "id": 3,
+    "author": {
+      "email": "andrea.e.nassif@hotmail.com",
+      "name": "ANDREA ESTEFANÍA",
+      "lastname": "Nassif",
+      "age": "35",
+      "alias": "Pity",
+      "avatar": "https://res.cloudinary.com/dhndpus6m/image/upload/v1659133158/Locosen3D/logolocos_x6ztl9.jpg"
+    },
+    "text": "hola",
+    "timestamp": "26/11/2022, 19:17:10"
+  },
+  {
+    "id": 4,
+    "author": {
+      "email": "andrea.e.nassif@hotmail.com",
+      "name": "ANDREA ESTEFANÍA",
+      "lastname": "Nassif",
+      "age": "35",
+      "alias": "pity",
+      "avatar": "https://res.cloudinary.com/dhndpus6m/image/upload/v1659133158/Locosen3D/logolocos_x6ztl9.jpg"
+    },
+    "text": "hola",
+    "timestamp": "26/11/2022, 19:22:02"
+  }
+]
