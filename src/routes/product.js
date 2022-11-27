@@ -1,4 +1,8 @@
 const express = require("express");
+const {productosTest} = require("../managers/faker.js")
+
+
+
 //const Contenedor = require("../managers/contenedorProductos");
 const ContenedorSql = require("../managers/contenedorMysql.js");
 const options = require("../config/optionConfig.js");
@@ -14,7 +18,6 @@ router.get('/',async(req,res)=>{
 })
 
 router.get('/:id',async(req,res)=>{
-    const productId = req.params.id;
     const product = await productosApi.getById(parseInt(productId));
     if(product){
         return res.send(product)
@@ -41,5 +44,10 @@ router.delete('/:id',async(req,res)=>{
     const result = await productosApi.deleteById(parseInt(productId));
     res.send(result);
 })
+
+router.get('/productos-test', async(req,res)=>{
+    res.send(productosTest)
+})
+
 
 module.exports = {productsRouter:router};

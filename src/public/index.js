@@ -1,3 +1,5 @@
+
+
 console.log("javascript funcionando");
 
 const socketClient = io();
@@ -67,12 +69,31 @@ campo.addEventListener("keydown",(evt)=>{
 })
 
 
-//fetch("/partials/tableData")
+//esquemas
+const authorSchema = new normalizr.schema.Entity("authors", {}, {idAttribute: "email"} )
+
+const messageSchema = new normalizr.schema.Entity("mesages", {
+  author: authorSchema
+})
+
+const chatSchema = new normalizr.schema.Entity("chat", {
+  messages: [ messageSchema]
+}, {idAttribute: "id"})
+
 
 const messageContainer = document.getElementById("messageContainer");
 
 socketClient.on("messages", async (dataMsg)=>{
   console.log("dataMsg", dataMsg)
+  //de-normalizar
+  const normalData = normalizr.denormalize(dataMsg.result,chatSchema,dataMsg.entities);
+  // console.log("normalData",normalData)
+  let messageElements = "";
+  normalData.messages.forEach(msg=>{
+      messageElements += `<div><strong>${msg.author.name} - ${msg.timestamp}:</strong> ${msg.text}</div>`;
+  })
+  const chatContainer = document.getElementById("chatContainer");
+  chatContainer.innerHTML = normalData.messages.length>0 ? messageElements : '';
     //let elementos="";
     //data.forEach(item=>{
     //    elementos = elementos + `<p><strong>${item.username}</strong>: ${item.message}</p>`;
