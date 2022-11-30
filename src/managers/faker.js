@@ -1,17 +1,19 @@
-const faker = require("@faker-js/faker")
+const { faker } = require('@faker-js/faker');
 
-const {commerce, datatype, image}= faker
+const {datatype, commerce, image}= faker
 
 faker.locale = 'es'
 
-const productosTest = []
+let productosTest = []
 
 for(let i = 0; i<5;i++){
     productosTest.push({
-        id : datatype.uuid(),
-        nombre:commerce.productName(),
-        precio: commerce.price(),
-        url: image.imageUrl(640,480,'commerce')
+        id: datatype.uuid(),
+        name: commerce.product(),
+        price: commerce.price(),
+        descpription: commerce.productDescription(),
+        image: image.abstract()
+       
     })
 }
    

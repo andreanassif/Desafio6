@@ -5,7 +5,8 @@ const { Server } = require ('socket.io')
 const {normalize, schema} = require("normalizr")
 const ContenedorMysql = require("./managers/contenedorMysql.js")
 const ContenedorSql = require("./managers/contenedorProductos.js");
-const ContenedorChat = require("./managers/contenedorChat.js")
+const ContenedorChat = require("./managers/contenedorChat.js");
+const { Router } = require('express');
 
 const productosApi = new ContenedorMysql(options.mariaDB, "products")
 const chatApi = new ContenedorChat("chat.txt");
@@ -64,11 +65,20 @@ app.get('/productos',async(req,res)=>{
     res.render('products',{products: await productosApi.getAll()})
 })
 
+
+
 //api routes
-app.use('/api/products',productsRouter)
+app.use("/api/products", productsRouter)
+
+//faker routes
+//app.use('/productos-test',productsRouter)
+app.get('/productos-test',async(req,res)=>{
+    res.render('products',{products: await productosTest.getAll()})
+})
+
 
 //levantar socket del servidor
-//const historicoMensajes = [];
+const historicoMensajes = [];
 
 io.on("connection", async (socket)=>{
     console.log("nuevo usuario conectado", socket.id);
@@ -82,7 +92,7 @@ io.on("connection", async (socket)=>{
         console.log(newMsg);
         await chatApi.save(newMsg)
 
-        //historicoMensajes.push(data);
+        historicoMensajes.push(data);
         //enviar a todos
         io.sockets.emit("messages", await normalizarMensajes());
     })

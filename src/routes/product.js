@@ -1,13 +1,11 @@
 const express = require("express");
 const {productosTest} = require("../managers/faker.js")
-
-
+const router = express.Router();
 
 //const Contenedor = require("../managers/contenedorProductos");
 const ContenedorSql = require("../managers/contenedorMysql.js");
 const options = require("../config/optionConfig.js");
 
-const router = express.Router();
 
 // const productosApi = new Contenedor("productos.txt");
 const productosApi = new ContenedorSql(options.mariaDB, "products");
@@ -45,9 +43,10 @@ router.delete('/:id',async(req,res)=>{
     res.send(result);
 })
 
-router.get('/productos-test', async(req,res)=>{
+router.get('/productos-test', (req,res)=>{
+   
     res.send(productosTest)
 })
 
 
-module.exports = {productsRouter:router};
+module.export = {productsRouter: router}

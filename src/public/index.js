@@ -94,18 +94,18 @@ socketClient.on("messages", async (dataMsg)=>{
   })
   const chatContainer = document.getElementById("chatContainer");
   chatContainer.innerHTML = normalData.messages.length>0 ? messageElements : '';
-    //let elementos="";
-    //data.forEach(item=>{
-    //    elementos = elementos + `<p><strong>${item.username}</strong>: ${item.message}</p>`;
-    //});
-    //messageContainer.innerHTML = elementos;
+    let elementos="";
+    data.forEach(item=>{
+        elementos = elementos + `<p><strong>${item.username}</strong>: ${item.message}</p>`;
+    });
+    messageContainer.innerHTML = elementos;
 })
 
-socketClient.on("newUser",()=>{
+/* socketClient.on("newUser",()=>{
     Swal.fire({
         text:"nuevo usuario conectado",
         toast:true
     })
-})
+}) */
 
 
