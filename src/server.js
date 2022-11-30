@@ -63,18 +63,13 @@ app.get('/', async(req,res)=>{
 
 app.get('/productos',async(req,res)=>{
     res.render('products',{products: await productosApi.getAll()})
-})
-
-
+}) 
 
 //api routes
-app.use("/api/products", productsRouter)
+app.use('/api/products', Router)
 
 //faker routes
-//app.use('/productos-test',productsRouter)
-app.get('/productos-test',async(req,res)=>{
-    res.render('products',{products: await productosTest.getAll()})
-})
+app.use('/productos-test', Router)
 
 
 //levantar socket del servidor
