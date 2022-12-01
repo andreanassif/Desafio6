@@ -1,6 +1,6 @@
 const express = require('express')
 const options = require("./config/optionConfig.js")
-const {productsRouter, products} = require("./routes/product.js");
+const {router} = require("./routes/product.js");
 const { Server } = require ('socket.io')
 const {normalize, schema} = require("normalizr")
 const ContenedorMysql = require("./managers/contenedorMysql.js")
@@ -13,8 +13,8 @@ const chatApi = new ContenedorChat("chat.txt");
 //const chatApi = new ContenedorSql(options.sqliteDB,"chat");
 
 const app = express()
-const PORT = process.env.PORT || 8080
-const server = app.listen(PORT, ()=>console.log(`Server ready on port ${8080}`))
+const PORT = process.env.PORT || 8081
+const server = app.listen(PORT, ()=>console.log(`Server ready on port ${PORT}`))
 
 
 const io = new Server(server)
@@ -57,14 +57,14 @@ const normalizarMensajes = async()=>{
 
 // routes
 //view routes
-app.get('/', async(req,res)=>{
+/* app.get('/', async(req,res)=>{
     res.render('home')
 })
 
 app.get('/productos',async(req,res)=>{
     res.render('products',{products: await productosApi.getAll()})
 }) 
-
+ */
 //api routes
 app.use('/api/products', Router)
 
@@ -87,7 +87,7 @@ io.on("connection", async (socket)=>{
         console.log(newMsg);
         await chatApi.save(newMsg)
 
-        historicoMensajes.push(data);
+        historicoMensajes.push(newMsg);
         //enviar a todos
         io.sockets.emit("messages", await normalizarMensajes());
     })

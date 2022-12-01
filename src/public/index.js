@@ -65,12 +65,13 @@ campo.addEventListener("keydown",(evt)=>{
             text: campo.value,
             timestamp: new Date().toLocaleString()
         })
+        campo.value = "";
     }
 })
 
 
 //esquemas
-const authorSchema = new normalizr.schema.Entity("authors", {}, {idAttribute: "email"} )
+const authorSchema = new normalizr.schema.Entity("authors",{}, {idAttribute: "email"} )
 
 const messageSchema = new normalizr.schema.Entity("mesages", {
   author: authorSchema

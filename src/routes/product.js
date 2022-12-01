@@ -46,7 +46,8 @@ router.delete('/:id',async(req,res)=>{
 router.get('/productos-test', (req,res)=>{
    
     res.send(productosTest)
+
 })
 
 
-module.export = {productsRouter: router}
+module.export = {Router: router}
