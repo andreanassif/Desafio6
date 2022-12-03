@@ -1,5 +1,4 @@
 
-
 console.log("javascript funcionando");
 
 const socketClient = io();

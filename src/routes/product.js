@@ -1,10 +1,11 @@
 const express = require("express");
 const {productosTest} = require("../managers/faker.js")
-const router = express.Router();
-
 //const Contenedor = require("../managers/contenedorProductos");
 const ContenedorSql = require("../managers/contenedorMysql.js");
 const options = require("../config/optionConfig.js");
+const {session, Cookie} = require("express-session");
+const router = express.Router();
+
 
 
 // const productosApi = new Contenedor("productos.txt");
@@ -44,10 +45,51 @@ router.delete('/:id',async(req,res)=>{
 })
 
 router.get('/productos-test', (req,res)=>{
-   
-    res.send(productosTest)
+   req.body = productosTest.value
+    res.send(
+        console.log(productosTest)
+        )
 
 })
 
+//rutas cookies, session & storage
+
+router.get("/login",(req,res)=>{
+    const {user} = req.query;
+    if(req.session.username){
+        return res.redirect("/perfil")
+    } else{
+        if(user){
+            req.session.username = user;
+            res.send("sesion iniciada");
+        } else{
+            res.send("por favor ingresa el usuario")
+        }
+    }
+});
+
+const checkUserLogged = (req,res,next)=>{
+    if(req.session.username){
+        next();
+    } else{
+        res.redirect("/login");
+    }
+}
+
+router.get("/perfil",checkUserLogged,(req,res)=>{
+    console.log(req.session);
+    res.send(`Bienvenido ${req.session.username}`);
+});
+
+router.get("/home",checkUserLogged,(req,res)=>{
+    console.log(req.session);
+    res.send("home");
+});
+
+
+router.get("/logout",(req,res)=>{
+    req.session.destroy();
+    res.send("sesion finalizada")
+});
 
 module.export = {Router: router}

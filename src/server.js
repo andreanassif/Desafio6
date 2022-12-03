@@ -2,15 +2,19 @@ const express = require('express')
 const options = require("./config/optionConfig.js")
 const {router} = require("./routes/product.js");
 const { Server } = require ('socket.io')
+const cookieParser = require("cookie-parser")
+const session = require("express-session");
 const {normalize, schema} = require("normalizr")
 const ContenedorMysql = require("./managers/contenedorMysql.js")
 const ContenedorSql = require("./managers/contenedorProductos.js");
 const ContenedorChat = require("./managers/contenedorChat.js");
 const { Router } = require('express');
+const MongoStore = require("connect-mongo")
 
 const productosApi = new ContenedorMysql(options.mariaDB, "products")
-const chatApi = new ContenedorChat("chat.txt");
-//const chatApi = new ContenedorSql(options.sqliteDB,"chat");
+//const chatApi = new ContenedorChat("chat.txt");
+const chatApi = new ContenedorSql(options.sqliteDB,"chat");
+
 
 const app = express()
 const PORT = process.env.PORT || 8081
@@ -65,11 +69,28 @@ app.get('/productos',async(req,res)=>{
     res.render('products',{products: await productosApi.getAll()})
 }) 
  */
+
+//indicamos uso de cookies al server
+app.use(cookieParser())
+
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl:"mongodb+srv://nassif:benicio2022@locosen3d.4crkgqb.mongodb.net/sessionDB"
+    }),
+    secret:"claveSecreta",
+    resave:false, //falso porque usamos mongo
+    saveUninitialized:false,
+    cookie:{
+        maxAge:600000
+    }
+}))
+
+
 //api routes
-app.use('/api/products', Router)
+app.use('/api', Router)
 
 //faker routes
-app.use('/productos-test', Router)
+//app.use('/productos-test', Router)
 
 
 //levantar socket del servidor
